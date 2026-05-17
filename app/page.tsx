@@ -402,13 +402,18 @@ export default function Home() {
           <span className="text-2xl font-black text-primary text-glow-primary tracking-tight">AgentFix</span>
         </div>
         <nav className="hidden md:flex items-center gap-2">
-          {['Playground', 'Research', 'Reports', 'Docs'].map((n, i) => (
-            <a key={n} href="#"
+          {([
+            { label: 'Playground', tab: 'input' },
+            { label: 'Research',   tab: 'research' },
+            { label: 'Reports',    tab: 'report' },
+            { label: 'Docs',       tab: 'analyze' },
+          ] as { label: string; tab: ActiveTab }[]).map(({ label, tab }) => (
+            <button key={label} onClick={() => setActiveTab(tab)}
               className={`text-sm px-4 py-1.5 rounded transition-all ${
-                i === 0
+                activeTab === tab
                   ? 'text-primary font-bold border-b-2 border-primary pb-1'
                   : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-bright/50 font-medium'
-              }`}>{n}</a>
+              }`}>{label}</button>
           ))}
         </nav>
         <div className="flex items-center gap-3">
@@ -587,7 +592,7 @@ export default function Home() {
             {/* Iteration control */}
             <div className="glass-panel p-6 rounded-xl flex flex-col justify-center">
               <label className="text-xs font-mono text-on-surface-variant mb-3 block uppercase tracking-widest">
-                Max Healing Iterations
+                Max Improvement Iterations
               </label>
               <div className="relative mb-2">
                 <select
