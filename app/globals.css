@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+/* ─── Design System Tokens ─────────────────────────────────── */
+@theme {
+  /* Surfaces */
+  --color-surface:                   #131314;
+  --color-surface-dim:               #131314;
+  --color-surface-bright:            #39393a;
+  --color-surface-deep:              #050505;
+  --color-surface-container-lowest:  #0e0e0f;
+  --color-surface-container-low:     #1c1b1c;
+  --color-surface-container:         #201f20;
+  --color-surface-container-high:    #2a2a2b;
+  --color-surface-container-highest: #353436;
+
+  /* On-surface */
+  --color-on-surface:         #e5e2e3;
+  --color-on-surface-variant: #d4c0d7;
+  --color-inverse-surface:    #e5e2e3;
+  --color-outline:            #9d8ba0;
+  --color-outline-variant:    #514255;
+
+  /* Primary (Electric Violet) */
+  --color-primary:            #ecb2ff;
+  --color-primary-container:  #bd00ff;
+  --color-on-primary:         #520071;
+  --color-on-primary-container: #ffffff;
+
+  /* Secondary (Spring Green) */
+  --color-secondary:           #5bffa1;
+  --color-secondary-container: #01e383;
+  --color-on-secondary:        #00391d;
+
+  /* Tertiary (Raspberry) */
+  --color-tertiary:            #ffb1c3;
+  --color-tertiary-container:  #e7006e;
+  --color-on-tertiary:         #66002d;
+
+  /* Semantic */
+  --color-critical-error:      #ffb4ab;
+  --color-warning-orange:      #ff8c00;
+  --color-action-blue:         #0052cc;
+  --color-action-blue-text:    #a3c2ff;
+  --color-error:               #ffb4ab;
+  --color-error-container:     #93000a;
+  --color-on-error-container:  #ffdad6;
+
+  /* Fonts */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+/* ─── Global Reset ─────────────────────────────────────────── */
+html, body {
+  background-color: #131314;
+  color: #e5e2e3;
+}
+
+/* ─── Glass Effects ────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.glass-panel-solid {
+  background: rgba(28, 27, 28, 0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.metric-gradient {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.inner-shadow {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* ─── Glow Effects ─────────────────────────────────────────── */
+.glow-accent {
+  position: relative;
+}
+.glow-accent::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: rgba(189, 0, 255, 0.18);
+  filter: blur(20px);
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-accent:hover::before {
+  opacity: 1;
+}
+
+.glow-primary { box-shadow: 0 0 15px rgba(189, 0, 255, 0.4); }
+.glow-secondary { box-shadow: 0 0 10px rgba(91, 255, 161, 0.3); }
+.glow-error { box-shadow: 0 0 10px rgba(255, 180, 171, 0.3); }
+
+.text-glow-primary { text-shadow: 0 0 8px #ecb2ff; }
+.text-glow-secondary { text-shadow: 0 0 8px rgba(91, 255, 161, 0.5); }
+
+/* ─── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #131314; }
+::-webkit-scrollbar-thumb { background: #514255; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9d8ba0; }
+
+/* ─── Spinner animation ────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin { animation: spin 1.2s linear infinite; }
+
+/* ─── Textarea & Select resets ─────────────────────────────── */
+textarea, input, select {
+  background-color: #050505;
+  color: #e5e2e3;
+  border-color: #514255;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+}
+textarea:focus, input:focus, select:focus {
+  outline: none;
+  border-color: #ecb2ff;
+  box-shadow: 0 0 0 1px #ecb2ff;
+}
