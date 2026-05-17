@@ -366,7 +366,7 @@ export default function Home() {
         reliabilityAfter: 72,
         stoppedReason: 'max_iterations_reached',
         success: true,
-        remainingFailures: mockHealedAttack.scenarios.filter((_, i) => i < 2) as VerifiedAttackResult[],
+        remainingFailures: mockHealedAttack.scenarios.filter((_, i) => i < 2) as unknown as VerifiedAttackResult[],
       };
 
       const mockResearch: ResearchResult = {
