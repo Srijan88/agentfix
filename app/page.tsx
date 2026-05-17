@@ -1489,15 +1489,27 @@ export default function Home() {
                         </button>
                         <button onClick={handleDownloadReport}
                           className="px-4 py-2 rounded-lg bg-primary text-on-primary font-bold hover:bg-primary-container hover:text-on-primary-container text-sm transition-all">
-                          ⬇ Download Report
+                          ⬇ Download PDF
                         </button>
                         <button onClick={() => setGeneratedReport('')}
                           className="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container text-on-surface-variant hover:text-critical-error hover:border-critical-error text-sm transition-all">
                           ↺ Re-generate
                         </button>
                       </div>
-                      <div className="bg-surface-deep inner-shadow border border-outline-variant rounded-xl p-6 max-h-[600px] overflow-y-auto">
-                        <pre className="text-xs font-mono text-on-surface-variant whitespace-pre-wrap leading-relaxed">{generatedReport}</pre>
+                      <div id="report-content" className="bg-surface-deep inner-shadow border border-outline-variant rounded-xl p-6 max-h-[600px] overflow-y-auto">
+                        <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed">
+                          {generatedReport.split('\n').map((line, i) => {
+                            if (line.startsWith('# ')) return <h1 key={i} className="text-xl font-bold text-on-surface mt-4 mb-2">{line.slice(2)}</h1>;
+                            if (line.startsWith('## ')) return <h2 key={i} className="text-lg font-bold text-primary mt-4 mb-2">{line.slice(3)}</h2>;
+                            if (line.startsWith('### ')) return <h3 key={i} className="text-base font-semibold text-secondary mt-3 mb-1">{line.slice(4)}</h3>;
+                            if (line.startsWith('**') && line.endsWith('**')) return <p key={i} className="font-bold text-on-surface">{line.slice(2, -2)}</p>;
+                            if (line.startsWith('- ') || line.startsWith('* ')) return <li key={i} className="ml-4 list-disc">{line.slice(2)}</li>;
+                            if (line.startsWith('| ')) return <p key={i} className="font-mono text-xs border-b border-white/5 py-1">{line}</p>;
+                            if (line.startsWith('---')) return <hr key={i} className="border-white/10 my-3" />;
+                            if (line.trim() === '') return <br key={i} />;
+                            return <p key={i} className="text-sm mb-1">{line}</p>;
+                          })}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -1523,7 +1535,35 @@ export default function Home() {
     if (generatedReport) copyToClipboard(generatedReport).then((ok) => { if (ok) alert('Report copied!'); });
   }
   function handleDownloadReport() {
-    if (generatedReport) downloadAsFile(generatedReport, 'agentfix-report.md', 'text/markdown');
+    if (!generatedReport) return;
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>AgentFix Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #111; line-height: 1.6; }
+            h1 { font-size: 24px; border-bottom: 2px solid #7c3aed; padding-bottom: 8px; }
+            h2 { font-size: 20px; color: #7c3aed; margin-top: 28px; }
+            h3 { font-size: 16px; margin-top: 20px; }
+            table { border-collapse: collapse; width: 100%; font-size: 12px; }
+            td, th { border: 1px solid #ddd; padding: 6px 10px; }
+            th { background: #f3f4f6; }
+            pre { background: #f9fafb; padding: 12px; border-radius: 6px; font-size: 12px; overflow-x: auto; }
+            hr { border: none; border-top: 1px solid #e5e7eb; margin: 20px 0; }
+            li { margin: 4px 0; }
+          </style>
+        </head>
+        <body>
+          <pre style="white-space:pre-wrap;font-family:Arial,sans-serif;">${generatedReport.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => { printWindow.print(); printWindow.close(); }, 500);
   }
 }
 
