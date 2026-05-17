@@ -333,7 +333,7 @@ export default function Home() {
           {
             iteration: 1,
             promptPack: SAMPLE_IMPROVED_PROMPT,
-            attackResults: mockHealedAttack.scenarios as VerifiedAttackResult[],
+            attackResults: mockHealedAttack.scenarios as unknown as VerifiedAttackResult[],
             failedCount: 4,
             passedCount: 2,
             reliabilityScore: 58,
@@ -347,7 +347,7 @@ export default function Home() {
           {
             iteration: 2,
             promptPack: SAMPLE_IMPROVED_PROMPT,
-            attackResults: mockHealedAttack.scenarios.map((s, i) => ({ ...s, passed: i >= 2 })) as VerifiedAttackResult[],
+            attackResults: mockHealedAttack.scenarios.map((s, i) => ({ ...s, passed: i >= 2 })) as unknown as VerifiedAttackResult[],
             failedCount: 2,
             passedCount: 4,
             reliabilityScore: 72,
