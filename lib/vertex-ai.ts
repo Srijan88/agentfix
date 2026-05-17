@@ -173,14 +173,27 @@ async function readSseText(response: Response) {
 
 function parseJsonFromModel<T>(response: string): T {
   const trimmed = response.trim();
-  const fencedMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
-  const jsonText = fencedMatch?.[1]?.trim() || trimmed;
 
-  try {
-    return JSON.parse(jsonText) as T;
-  } catch {
-    throw new Error('Vertex AI returned a non-JSON response where JSON was required.');
+  // 1. Try fenced code block first (```json ... ``` or ``` ... ```)
+  const fencedMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  if (fencedMatch?.[1]) {
+    try { return JSON.parse(fencedMatch[1].trim()) as T; } catch {}
   }
+
+  // 2. Try raw parse
+  try { return JSON.parse(trimmed) as T; } catch {}
+
+  // 3. Try extracting first JSON object or array from response
+  const objMatch = trimmed.match(/\{[\s\S]*\}/);
+  if (objMatch) {
+    try { return JSON.parse(objMatch[0]) as T; } catch {}
+  }
+  const arrMatch = trimmed.match(/\[[\s\S]*\]/);
+  if (arrMatch) {
+    try { return JSON.parse(arrMatch[0]) as T; } catch {}
+  }
+
+  throw new Error(`Vertex AI returned a non-JSON response. Preview: ${trimmed.slice(0, 300)}`);
 }
 
 export function parseVertexJson<T>(response: string): T {
