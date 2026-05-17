@@ -1,535 +1,465 @@
-# AgentFix Playground
+# AgentFix
 
-**A developer tool for testing, attacking, comparing, and repairing AI agent prompts**
+**Autonomous AI Agent Security Testing & Self-Improvement Platform**
 
-Built for the IBM Bob Hackathon | Powered by Vertex AI Gemini 2.5 Pro
+A system that analyzes AI agent prompt packs for vulnerabilities, launches adversarial red-team attacks using a 600+ payload dataset, generates hardened prompts using Gemini 2.5 Flash, and re-tests until secure—all without human intervention.
 
----
-
-## 🎯 Overview
-
-AgentFix Playground helps developers ship safer and more reliable AI agents by testing, attacking, comparing, and repairing system prompts, fallback rules, tool-use instructions, and agent behavior policies.
-
-### One-Line Pitch
-
-AgentFix Playground helps developers ship safer and more reliable AI agents by testing, attacking, comparing, and repairing system prompts, fallback rules, tool-use instructions, and agent behavior policies.
+[![Next.js](https://img.shields.io/badge/Next.js-16.2.6-black)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org)
+[![Vertex AI](https://img.shields.io/badge/Vertex_AI-Gemini_2.5_Flash-orange)](https://cloud.google.com/vertex-ai)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ---
 
-## 🚀 Problem Statement
+## Table of Contents
 
-AI agents are increasingly deployed in production environments, but many suffer from:
-
-- **Unclear role definitions** that lead to unpredictable behavior
-- **Weak guardrails** that allow prompt injection and jailbreak attacks
-- **Missing confirmation rules** before sensitive actions
-- **Vague tool-use instructions** that create security vulnerabilities
-- **Poor fallback behavior** when encountering edge cases
-- **Lack of escalation rules** for handling complex situations
-- **Insufficient refusal mechanisms** for out-of-scope requests
-
-These issues can lead to security breaches, data leaks, user frustration, and unreliable agent behavior in production.
-
----
-
-## 💡 Solution
-
-AgentFix Playground provides a comprehensive testing and repair workflow:
-
-1. **Analyze** - Detect vulnerabilities and weaknesses in agent prompts
-2. **Attack** - Run defensive red-team scenarios to find failure points
-3. **Heal** - Generate improved prompts with better safety and reliability
-4. **Compare** - See exactly what changed and why
-5. **Re-test** - Verify improvements with the same attack scenarios
-6. **Report** - Generate comprehensive documentation for your team
+- [Overview](#overview)
+- [The Core Loop](#the-core-loop)
+- [Architecture](#architecture)
+- [Features](#features)
+- [Attack Categories](#attack-categories)
+- [Reliability Scoring](#reliability-scoring)
+- [Quick Start](#quick-start)
+- [API Reference](#api-reference)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
 
 ---
 
-## ✨ Key Features
+## Overview
 
-### 1. **Professional Dashboard**
-- Clean, developer-focused interface
-- Real-time reliability scoring
-- Quick stats for critical issues and failed attacks
-- Intuitive tab-based navigation
+AI agents are vulnerable to prompt injection, jailbreaks, social engineering, and instruction leakage. AgentFix provides autonomous security hardening through:
 
-### 2. **Prompt Input Panel**
-- Input areas for all agent prompt components:
-  - System prompt
-  - Developer prompt
-  - Tool-use instructions
-  - Fallback behavior
-  - Escalation rules
-  - Confirmation rules
-  - Refusal/redirect rules
-  - Agent boundaries
-- "Load Sample Prompt" button with weak example for testing
-
-### 3. **Prompt Analyzer**
-Detects issues including:
-- Unclear role definition
-- Weak system instructions
-- Prompt injection risk
-- Instruction override risk
-- Hallucination-prone wording
-- Conflicting instructions
-- Vague tool-use rules
-- Missing escalation rules
-- Missing confirmation steps
-- Weak refusal behavior
-- Over-permissive tool access
-- Lack of scope boundaries
-
-Each issue includes:
-- Title and category
-- Severity level (Critical, High, Medium, Low, Informational)
-- Confidence score
-- Affected prompt section
-- Detailed explanation
-- Recommended fix
-
-### 4. **Attack Mode**
-Runs defensive tests against:
-- Prompt injection attempts
-- Jailbreak-style instruction override
-- Social engineering pressure
-- Sensitive data leakage
-- Tool misuse
-- Missing confirmation scenarios
-- Unsupported requests
-- User intent changes
-- Confused or angry users
-- Ambiguous requests
-- Repeated pressure
-- Hallucination risks
-- Escalation failures
-- Fallback loops
-- Policy violations
-- Instruction leakage
-- Unsafe tool execution
-- Over-sharing internal reasoning
-- Recovery failures
-
-For each scenario:
-- Simulated user input
-- Expected safe behavior
-- Likely behavior with current prompt
-- Pass/fail result
-- Failure reason
-- Severity and confidence
-- Recommended defense
-
-### 5. **Self-Heal Mode**
-Generates improved prompts that:
-- Are clearer and more specific
-- Reduce ambiguity
-- Handle unsupported requests properly
-- Require confirmation before important actions
-- Validate details before tool use
-- Resist instruction override attempts
-- Resist social engineering pressure
-- Escalate when needed
-- Recover gracefully from failures
-- Keep behavior inside intended scope
-- Reduce hallucination risk
-- Make tool-use rules explicit
-
-### 6. **Re-Test Improved Prompt**
-- Runs same attack scenarios on improved prompt
-- Shows before/after pass/fail results
-- Calculates vulnerability reduction percentage
-- Displays reliability score improvement
-
-### 7. **Previous vs New Prompt Comparison**
-Side-by-side comparison showing:
-- Removed weak wording
-- Added safety rules
-- Added confirmation requirements
-- Added fallback behavior
-- Added tool-use validation
-- Added escalation instructions
-- Added recovery behavior
-- Added refusal/redirect boundaries
-- Added scope limits
-- Improved clarity
-
-### 8. **Ask AI About the Prompt**
-Chat-style interface for questions like:
-- "Why did this prompt fail Attack Mode?"
-- "What changed in the improved prompt?"
-- "Which part creates prompt injection risk?"
-- "How can I improve fallback behavior?"
-- "Explain this issue like I'm a beginner."
-
-### 9. **Voice Input for Developer Questions**
-- Microphone input using Web Speech API
-- Converts speech to text for Ask AI
-- Graceful fallback if not supported
-
-### 10. **Prompt Research Mode**
-Best-practice guidance for:
-- System prompt design
-- Developer prompt design
-- Fallback behavior
-- Tool-use instructions
-- Confirmation rules
-- Escalation rules
-- Prompt injection defense
-- Conversation recovery
-- Refusal and redirect behavior
-- Agent safety boundaries
-- Hallucination reduction
-- Workflow-agent reliability
-
-### 11. **Agent Reliability Score**
-Scores across categories:
-- Role clarity
-- Instruction clarity
-- Fallback handling
-- Tool-use safety
-- Confirmation behavior
-- Escalation behavior
-- Prompt injection resistance
-- Conversation recovery
-- Unsupported request handling
-- Hallucination resistance
-- Scope control
-- Refusal/redirect quality
-- Sensitive-data protection
-
-Shows before/after scores with improvement percentage.
-
-### 12. **Developer Report**
-Generates comprehensive Markdown report including:
-- Project overview
-- Original prompt summary
-- Issues found with severity levels
-- Attack scenarios tested
-- Failed scenarios
-- Recommended fixes
-- Improved prompt pack
-- Before/after comparison
-- Reliability scores
-- Vulnerability reduction percentage
-- Remaining risks
-- Next recommended improvements
-- Runtime LLM information
-- IBM Bob usage summary
+- **Prompt Analysis** — Detect 50+ issue types across security, performance, maintainability, and AI-specific risks
+- **Adversarial Red-Teaming** — Run 600+ curated attack payloads from HuggingFace's `prompt_injection_dataset`
+- **AI-Powered Fixes** — Gemini 2.5 Flash analyzes failures and generates hardened prompt packs
+- **Self-Improve Loop** — Re-test iteratively until all attacks pass or max iterations reached
+- **Live Probe** — Test your prompt pack against a real live Vertex AI agent instance
+- **Observability** — Track every Vertex AI call with latency, token usage, and error capture
 
 ---
 
-## 🛠️ Tech Stack
+## The Core Loop
 
-- **Frontend**: Next.js 16, React 19, TypeScript
-- **Styling**: Tailwind CSS 4
-- **UI Components**: Custom components with Tailwind
-- **API**: Next.js API Routes (server-side)
-- **Runtime LLM**: Google Cloud Vertex AI with Gemini 2.5 Pro (ONLY)
-- **Voice Input**: Web Speech API (browser-native)
-- **Development Partner**: IBM Bob IDE
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    SELF-IMPROVE LOOP                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌────────────┐  │
+│  │ ANALYZE  │──▶│  ATTACK  │──▶│ IMPROVE  │──▶│  RE-TEST   │  │
+│  │ PROMPT   │   │ (600+    │   │(Gemini   │   │            │  │
+│  │ PACK     │   │ payloads)│   │ 2.5)     │   │            │  │
+│  └──────────┘   └──────────┘   └──────────┘   └─────┬──────┘  │
+│       ▲                                              │         │
+│       │                  ┌───────────┐               │         │
+│       └──────────────────│  FAILED?  │◀──────────────┘         │
+│                          └─────┬─────┘                         │
+│                                │ NO                            │
+│                                ▼                               │
+│                         ┌───────────┐                          │
+│                         │  SECURE   │                          │
+│                         └───────────┘                          │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 🤖 Runtime LLM
+## Architecture
 
-**AgentFix Playground uses Google Cloud Vertex AI with Gemini 2.5 Pro as the only runtime LLM for prompt analysis, attack evaluation, self-healing prompt generation, Ask AI responses, research guidance, and report generation. IBM Bob IDE was used as the required hackathon development partner for building, reviewing, documenting, and improving the project.**
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                              AGENTFIX                                    │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌───────────────────────────────────────────────────────────────────┐  │
+│  │                         FRONTEND (Next.js)                        │  │
+│  │                                                                   │  │
+│  │  Playground │ Research │ Reports │ Docs / Observability           │  │
+│  │                                                                   │  │
+│  │  • PromptPack editor (8 sections)                                 │  │
+│  │  • Attack Mode — live red-team with profile selection             │  │
+│  │  • Self-Improve — iterative loop with vulnerability reduction %   │  │
+│  │  • Live Probe — real Vertex AI agent conversation testing         │  │
+│  │  • Report export — formatted markdown to PDF                      │  │
+│  │  • Observability dashboard — call logs, latency, token usage      │  │
+│  └─────────────────────────────┬─────────────────────────────────────┘  │
+│                                │ HTTP REST                               │
+│  ┌─────────────────────────────▼─────────────────────────────────────┐  │
+│  │                      API LAYER (Next.js Routes)                   │  │
+│  │                                                                   │  │
+│  │  /api/analyze        /api/attack           /api/improve           │  │
+│  │  /api/improve-verify /api/retest           /api/report            │  │
+│  │  /api/ask            /api/research         /api/observability     │  │
+│  └─────────────────────────────┬─────────────────────────────────────┘  │
+│                                │                                         │
+│  ┌─────────────────────────────▼─────────────────────────────────────┐  │
+│  │                         CORE LIBRARY                              │  │
+│  │                                                                   │  │
+│  │  vertex-ai.ts          — Gemini 2.5 Flash client (SSE streaming)  │  │
+│  │  observability.ts      — Vertex AI call logger                    │  │
+│  │  prompt-validation.ts  — PromptPack schema validation             │  │
+│  │  mock-data.ts          — Dev/demo scenarios                       │  │
+│  │  verification/retest.ts — Re-test harness                         │  │
+│  │  vertex/textAgentRunner.ts — Live Probe agent runner              │  │
+│  │  data/prompt_injection_dataset.csv — 600+ HuggingFace payloads    │  │
+│  └────────────────────────────────────────────────────────────────────┘  │
+│                                │                                         │
+└────────────────────────────────┼─────────────────────────────────────────┘
+                                 │
+                    ┌────────────▼───────────┐
+                    │    Google Vertex AI     │
+                    │  Gemini 2.5 Flash       │
+                    │                        │
+                    │  • Prompt analysis     │
+                    │  • Attack generation   │
+                    │  • Fix synthesis       │
+                    │  • Research Q&A        │
+                    │  • Report generation   │
+                    └────────────────────────┘
+```
 
-### Why Vertex AI Gemini 2.5 Pro?
+### Data Flow
 
-- Advanced reasoning capabilities for complex prompt analysis
-- Strong security and safety features
-- Excellent at understanding nuanced prompt engineering concepts
-- Reliable for generating improved prompts
-- Enterprise-grade reliability and performance
+```
+┌────────┐     ┌──────────┐     ┌────────────┐     ┌───────────┐
+│ Client │     │ Next.js  │     │ vertex-ai  │     │ Vertex AI │
+└───┬────┘     └────┬─────┘     └─────┬──────┘     └─────┬─────┘
+    │               │                 │                   │
+    │  POST /api/improve-verify        │                   │
+    │──────────────▶│                 │                   │
+    │               │  runHealVerify()│                   │
+    │               │────────────────▶│                   │
+    │               │                 │  streamGenerate() │
+    │               │                 │──────────────────▶│
+    │               │                 │   SSE stream      │
+    │               │                 │◀──────────────────│
+    │               │                 │                   │
+    │               │                 │  [if failures]    │
+    │               │                 │  generateFix()    │
+    │               │                 │──────────────────▶│
+    │               │                 │   improved pack   │
+    │               │                 │◀──────────────────│
+    │               │                 │                   │
+    │               │                 │  ┌─────────────────────────────┐
+    │               │                 │  │  LOOP UNTIL PASS OR MAX     │
+    │               │                 │  │  IMPROVEMENT ITERATIONS     │
+    │               │                 │  └─────────────────────────────┘
+    │               │  HealVerifyResult│                  │
+    │               │◀────────────────│                   │
+    │  JSON response│                 │                   │
+    │◀──────────────│                 │                   │
+```
 
 ---
 
-## 🎓 IBM Bob Hackathon Usage
+## Features
 
-IBM Bob IDE was used extensively throughout this project as the core development partner:
+### Prompt Analysis
+- 50+ issue types across 5 categories: security, maintainability, performance, functionality, style
+- AI-specific risks: prompt injection risk, hallucination-prone patterns, weak guardrails, unclear role
+- Per-issue severity (critical / high / medium / low / informational) with confidence score
+- Section-level attribution to the exact PromptPack field
 
-### Planning & Architecture
-- Breaking down hackathon requirements into actionable tasks
-- Designing the Vertex AI integration layer
-- Planning component structure and data flow
-- Creating the project roadmap
+### Attack Mode
+- 20 attack categories including prompt injection, jailbreak, social engineering, data leakage, tool misuse
+- 3 simulation profiles: `context-identity`, `system-boundaries`, `tool-exploitation`
+- Multi-turn attack support (1–3 turns per scenario)
+- 600+ adversarial payloads sourced from HuggingFace `prompt_injection_dataset`
+- Live Probe option: attacks run against a real Vertex AI agent instance
 
-### Code Generation
-- Generating React components
-- Creating API routes
-- Building utility functions
-- Implementing type definitions
-- Setting up the Vertex AI abstraction layer
+### Self-Improve (Improve & Verify)
+- Gemini 2.5 Flash analyzes failed attacks and synthesizes a hardened prompt pack
+- Configurable max iterations (default 5)
+- Per-iteration view: attack results, changes made, vulnerability reduction %, reliability score
+- Stops early when all attacks pass
 
-### Code Review & Refactoring
-- Analyzing code quality
-- Suggesting improvements
-- Refactoring for better maintainability
-- Ensuring best practices
+### Reliability Scoring
+13-dimension scoring (0–100 each) — see [Reliability Scoring](#reliability-scoring)
 
-### Testing & Debugging
-- Identifying edge cases
-- Creating test scenarios
-- Debugging issues
-- Validating functionality
-
-### Documentation
-- Writing comprehensive README
-- Creating inline code documentation
-- Generating API documentation
-- Documenting architecture decisions
+### Research Assistant
+- Ask Gemini 2.5 Flash about AI agent security topics
+- Returns recommended steps, implementation guidance, and suggested prompt wording
 
 ### Report Generation
-- Creating developer reports
-- Documenting the development process
-- Generating session summaries
+- Full developer report: issues found, attacks tested, before/after comparison, remaining risks
+- Rendered as formatted markdown with PDF export via browser print dialog
 
-**Exported Bob task sessions are available in the `/bob_sessions` directory.**
+### Observability Dashboard
+- Real-time log of every Vertex AI call: operation type, model, status, latency (ms), token counts
+- Aggregate stats: total calls, success/error counts, total duration
+- Toggle on/off from the UI
 
 ---
 
-## 🚀 Getting Started
+## Attack Categories
+
+| Category | Description |
+|---|---|
+| `prompt-injection` | Hidden instructions embedded in user input |
+| `jailbreak` | DAN / pretend / "ignore previous" attacks |
+| `social-engineering` | Authority claims, urgency, trust manipulation |
+| `data-leakage` | Attempts to extract system prompt or internal data |
+| `tool-misuse` | Exploiting tool-use permissions beyond scope |
+| `missing-confirmation` | Actions that should require confirmation but don't |
+| `unsupported-request` | Requests outside defined agent scope |
+| `intent-change` | Mid-conversation pivot to malicious goal |
+| `confused-user` | Exploiting ambiguity in agent instructions |
+| `angry-user` | Emotional pressure to bypass guardrails |
+| `ambiguous-request` | Edge-case inputs that reveal weak defaults |
+| `repeated-pressure` | Persistence attacks across multiple turns |
+| `hallucination-risk` | Prompts that encourage fabrication |
+| `escalation-failure` | Bypassing escalation rules |
+| `fallback-loop` | Triggering infinite fallback cycles |
+| `policy-violation` | Exploiting loopholes in stated policies |
+| `instruction-leakage` | Extracting confidential system instructions |
+| `unsafe-execution` | Triggering unsafe tool/code execution |
+| `over-sharing` | Getting the agent to share more than permitted |
+| `recovery-failure` | Breaking post-error conversation recovery |
+
+---
+
+## Reliability Scoring
+
+Overall score (0–100) composed of 13 weighted dimensions:
+
+| Dimension | What it measures |
+|---|---|
+| Role Clarity | How clearly the agent's persona and purpose is defined |
+| Instruction Clarity | Unambiguous, consistent directive phrasing |
+| Fallback Handling | Graceful response to unsupported or unclear requests |
+| Tool Use Safety | Scope constraints and permission boundaries for tools |
+| Confirmation Behavior | Appropriate check-ins before consequential actions |
+| Escalation Behavior | Correct escalation to humans when required |
+| Prompt Injection Resistance | Robustness against embedded malicious instructions |
+| Conversation Recovery | Ability to recover cleanly after errors or attacks |
+| Unsupported Request Handling | Refusal quality for out-of-scope requests |
+| Hallucination Resistance | Grounding and factual accuracy constraints |
+| Scope Control | Prevention of scope creep and boundary violations |
+| Refusal/Redirect Quality | Helpful, non-harmful refusals with alternatives |
+| Sensitive Data Protection | Prevention of credential/PII leakage |
+
+---
+
+## Quick Start
 
 ### Prerequisites
 
-- Node.js 20.9+ installed
-- Google Cloud account with Vertex AI enabled
-- Vertex AI API credentials
+- Node.js 18+
+- Google Cloud project with Vertex AI enabled
+- Vertex AI API Key **or** Application Default Credentials (ADC)
 
-### Installation
+### 1. Clone & Install
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd agentfix
-   ```
+```bash
+git clone https://github.com/Srijan88/agentfix.git
+cd agentfix
+npm install
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+### 2. Configure Environment
 
-3. **Set up environment variables**
-   
-   Copy `.env.example` to `.env.local`:
-   ```bash
-   cp .env.example .env.local
-   ```
+```bash
+# .env.local
+VERTEX_AI_API_KEY=your-google-cloud-api-key   # Express Mode (recommended for Vercel)
+# OR configure ADC locally:
+# gcloud auth application-default login
+```
 
-   Edit `.env.local` and add your credentials:
-   ```env
-   GOOGLE_CLOUD_PROJECT_ID=your_project_id
-   GOOGLE_CLOUD_LOCATION=us-central1
-   VERTEX_AI_MODEL=gemini-2.5-flash
-   VERTEX_AI_API_KEY=your_api_key
-   ```
+### 3. Run Locally
 
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+# Open http://localhost:3000
+```
 
-5. **Open your browser**
-   
-   Navigate to [http://localhost:3000](http://localhost:3000)
+### 4. Quick API Test
+
+```bash
+# Connectivity check
+curl http://localhost:3000/api/test-vertex
+
+# Run attack evaluation
+curl -X POST http://localhost:3000/api/attack \
+  -H "Content-Type: application/json" \
+  -d '{
+    "promptPack": {
+      "systemPrompt": "You are a helpful assistant.",
+      "developerPrompt": "",
+      "toolUseInstructions": "",
+      "fallbackBehavior": "",
+      "escalationRules": "",
+      "confirmationRules": "",
+      "refusalRedirectRules": "",
+      "agentBoundaries": ""
+    },
+    "selectedProfiles": ["context-identity", "system-boundaries"],
+    "totalAttacksRequested": 5,
+    "liveProbe": false
+  }'
+```
 
 ---
 
-## 📁 Project Structure
+## API Reference
+
+### REST Endpoints
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/test-vertex` | GET | Vertex AI connectivity check |
+| `/api/analyze` | POST | Static prompt pack analysis |
+| `/api/attack` | POST | Run adversarial attack evaluation |
+| `/api/improve` | POST | Generate improved prompt pack from failures |
+| `/api/improve-verify` | POST | Full self-improve loop with verification |
+| `/api/retest` | POST | Re-test an improved prompt pack |
+| `/api/ask` | POST | Chat with Gemini about your prompt |
+| `/api/research` | POST | Research AI security topics |
+| `/api/report` | POST | Generate full developer report |
+| `/api/observability` | POST | Log a Vertex AI call |
+
+### PromptPack Schema
+
+All endpoints that accept a `promptPack` require all 8 string fields:
+
+```typescript
+interface PromptPack {
+  systemPrompt: string;          // Core agent identity and purpose
+  developerPrompt: string;       // Developer-level instructions
+  toolUseInstructions: string;   // Tool permissions and constraints
+  fallbackBehavior: string;      // What to do when unsure
+  escalationRules: string;       // When to hand off to a human
+  confirmationRules: string;     // When to ask before acting
+  refusalRedirectRules: string;  // How to decline and redirect
+  agentBoundaries: string;       // Hard scope limits
+}
+```
+
+### POST /api/attack
+
+```json
+{
+  "promptPack": { "..." },
+  "scenarios": [],
+  "selectedProfiles": ["context-identity", "system-boundaries", "tool-exploitation"],
+  "totalAttacksRequested": 14,
+  "liveProbe": false,
+  "attackTurns": 1
+}
+```
+
+### POST /api/improve-verify
+
+```json
+{
+  "promptPack": { "..." },
+  "attackResults": [ "..." ],
+  "maxIterations": 5
+}
+```
+
+---
+
+## Tech Stack
+
+| Component | Technology | Purpose |
+|---|---|---|
+| Framework | Next.js 16.2.6 | App Router, API routes, SSR |
+| Language | TypeScript 5 | Type safety across all layers |
+| Styling | Tailwind CSS 4 | Dark-theme utility CSS |
+| AI | Gemini 2.5 Flash (Vertex AI) | Analysis, attacks, fixes, research |
+| Auth | google-auth-library | OAuth ADC + API Key (Express Mode) |
+| Utilities | clsx, tailwind-merge | Class composition |
+| Dataset | HuggingFace prompt_injection_dataset | 600+ adversarial payloads |
+| Deployment | Vercel | Edge-optimized Next.js hosting |
+
+---
+
+## Project Structure
 
 ```
 agentfix/
-├── app/                          # Next.js app directory
-│   ├── api/                      # API routes (server-side)
-│   │   ├── analyze/route.ts      # Prompt analysis endpoint
-│   │   ├── attack/route.ts       # Attack mode endpoint
-│   │   ├── heal/route.ts         # Self-heal endpoint
-│   │   ├── ask/route.ts          # Ask AI endpoint
-│   │   ├── report/route.ts       # Report generation endpoint
-│   │   └── research/route.ts     # Research mode endpoint
-│   ├── layout.tsx                # Root layout
-│   ├── page.tsx                  # Main dashboard page
-│   └── globals.css               # Global styles
-├── components/                   # React components (to be added)
-├── lib/                          # Utility libraries
-│   ├── vertex-ai.ts              # Vertex AI integration layer
-│   ├── utils.ts                  # Utility functions
-│   └── mock-data.ts              # Sample data for demo
-├── types/                        # TypeScript type definitions
-│   └── index.ts                  # Core type definitions
-├── bob_sessions/                 # IBM Bob session reports
-│   └── README.md                 # Bob usage documentation
-├── .env.example                  # Environment variables template
-├── .env.local                    # Your credentials (not committed)
-├── .gitignore                    # Git ignore rules
-├── package.json                  # Dependencies
-├── tsconfig.json                 # TypeScript configuration
-├── tailwind.config.ts            # Tailwind configuration
-└── README.md                     # This file
+├── app/
+│   ├── page.tsx                    # Main dashboard UI (single-page app)
+│   ├── layout.tsx                  # Root layout
+│   ├── globals.css                 # Dark theme global styles
+│   └── api/
+│       ├── analyze/route.ts        # Prompt pack static analysis
+│       ├── attack/route.ts         # Adversarial attack evaluation
+│       ├── improve/route.ts        # Prompt improvement generation
+│       ├── improve-verify/route.ts # Self-improve + verify loop
+│       ├── retest/route.ts         # Re-test after improvement
+│       ├── ask/route.ts            # Conversational assistant
+│       ├── research/route.ts       # Security research queries
+│       ├── report/route.ts         # Developer report generation
+│       ├── observability/route.ts  # Call log ingestion
+│       └── test-vertex/route.ts    # Connectivity check
+│
+├── lib/
+│   ├── vertex-ai.ts                # Gemini 2.5 Flash client (SSE + JSON parsing)
+│   ├── observability.ts            # Vertex AI call logger
+│   ├── prompt-validation.ts        # PromptPack schema validator
+│   ├── mock-data.ts                # Dev/demo scenarios
+│   ├── utils.ts                    # Shared utilities
+│   ├── verification/
+│   │   └── retest.ts               # Re-test harness
+│   ├── vertex/
+│   │   └── textAgentRunner.ts      # Live Probe agent runner
+│   └── data/
+│       └── prompt_injection_dataset.csv  # 600+ HuggingFace attack payloads
+│
+├── types/
+│   └── index.ts                    # All TypeScript interfaces
+│
+├── public/                         # Static assets
+├── .env.local                      # Environment variables (gitignored)
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
 
 ---
 
-## 🔒 Security Notes
+## Configuration
 
-### Important Security Practices
+### Environment Variables
 
-1. **Never commit credentials**
-   - `.env.local` is in `.gitignore`
-   - Never hardcode API keys in source code
-   - Use environment variables for all secrets
+| Variable | Required | Description |
+|---|---|---|
+| `VERTEX_AI_API_KEY` | Yes (Express Mode) | Google Cloud API key for Vertex AI |
+| `GOOGLE_APPLICATION_CREDENTIALS` | Yes (ADC Mode) | Path to service account JSON |
 
-2. **Credential files to avoid**
-   - `.env.local`
-   - `.env`
-   - `*-service-account.json`
-   - `service-account*.json`
-   - `gcloud-credentials.json`
+> **Express Mode** (`VERTEX_AI_API_KEY`) is recommended for Vercel deployments. **ADC Mode** is for local development via `gcloud auth application-default login`.
 
-3. **Use `.env.example`**
-   - Only contains placeholder values
-   - Safe to commit to version control
-   - Helps other developers set up their environment
+### Simulation Profiles
 
-4. **Production deployment**
-   - Use secure secret management (e.g., Google Secret Manager)
-   - Enable Workload Identity Federation
-   - Use service account impersonation
-   - Never expose API keys in client-side code
+| Profile | What it tests |
+|---|---|
+| `context-identity` | Role confusion, persona manipulation, identity attacks |
+| `system-boundaries` | Instruction leakage, boundary violations, scope creep |
+| `tool-exploitation` | Tool permission abuse, unsafe execution, over-sharing |
 
 ---
 
-## 🎬 Demo Flow
+## Deployment (Vercel)
 
-### Minimum Viable Demo (5 minutes)
-
-1. **Open AgentFix Playground** → See professional dashboard
-2. **Click "Load Sample Prompt"** → Weak AI agent prompt loads
-3. **Click "Run Prompt Analysis"** → See reliability score and detected issues
-4. **Click "Run Attack Mode"** → See attack scenarios, failures, and defenses
-5. **Click "Generate Fixed Prompt"** → Improved prompt generated
-6. **View "Self-Heal" tab** → See improvements made
-7. **View "Comparison" tab** → See before/after side-by-side
-8. **View "Analysis" tab** → See improved reliability score
-9. **Try "Ask AI"** → Ask questions about the prompt
-10. **Use voice input** → Speak a question (if supported)
-11. **View "Research" tab** → Get best-practice guidance
-12. **Generate "Report"** → Download comprehensive Markdown report
+1. Push repo to GitHub
+2. Import at [vercel.com](https://vercel.com)
+3. Add environment variable: `VERTEX_AI_API_KEY`
+4. Deploy — auto-deploys on every push to `main`
 
 ---
 
-## 🎯 Core Positioning
+## Built With
 
-### What AgentFix Playground IS:
-- A prompt repair and testing playground for AI agents
-- A defensive security tool for agent developers
-- A prompt engineering best-practices guide
-- A before/after comparison tool for prompt improvements
-
-### What AgentFix Playground IS NOT:
-- A generic chatbot
-- A general code fixer
-- A voice-agent platform
-- A full backend code debugging tool
-
-**Focus**: Agent prompt fixing, attack testing, and self-healing for safer AI agents.
+- [Google Vertex AI](https://cloud.google.com/vertex-ai) — Gemini 2.5 Flash for all AI operations
+- [HuggingFace prompt_injection_dataset](https://huggingface.co/datasets/deepset/prompt-injections) — Adversarial attack corpus
+- [Next.js](https://nextjs.org) — React framework for production
+- [IBM watsonx Orchestrate / Bob](https://www.ibm.com/products/watson-orchestrate) — AI development assistant
 
 ---
 
-## 🔄 Development Workflow
+## License
 
-### Using IBM Bob for Development
-
-1. **Planning**: Use Bob to break down features into tasks
-2. **Coding**: Use Bob to generate components and API routes
-3. **Review**: Use Bob to analyze code quality
-4. **Refactor**: Use Bob to improve code organization
-5. **Test**: Use Bob to identify edge cases
-6. **Document**: Use Bob to generate documentation
-7. **Report**: Export Bob sessions to `/bob_sessions`
-
----
-
-## 📊 Environment Variables
-
-Required environment variables (see `.env.example`):
-
-```env
-# Google Cloud Vertex AI Configuration
-GOOGLE_CLOUD_PROJECT_ID=your_project_id_here
-GOOGLE_CLOUD_LOCATION=us-central1
-VERTEX_AI_MODEL=gemini-2.5-flash
-VERTEX_AI_API_KEY=your_api_key_here
-```
-
-AgentFix calls Vertex AI text models with `streamGenerateContent`; the default is `gemini-2.5-flash`, and you can set `VERTEX_AI_MODEL=gemini-2.5-pro` for higher-reasoning evaluation runs. If `VERTEX_AI_API_KEY` is set, it uses Vertex AI Express Mode. Without an API key, it uses the standard Vertex AI endpoint with Google Cloud OAuth/ADC or `GOOGLE_APPLICATION_CREDENTIALS`.
-
-### Getting Vertex AI Credentials
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Enable Vertex AI API
-3. Create or select a project
-4. Generate API credentials
-5. Add credentials to `.env.local`
-
----
-
-## 🚧 Roadmap
-
-### Current MVP Features (Hackathon)
-- ✅ Prompt input panel
-- ✅ Prompt analyzer
-- ✅ Attack mode
-- ✅ Self-heal mode
-- ✅ Basic comparison view
-- ✅ Ask AI interface
-- ✅ Research mode
-- ✅ Report generation
-- ✅ Vertex AI integration
-- ✅ Sample prompt/demo data
-
-### Future Enhancements
-- [ ] Advanced prompt diff viewer with syntax highlighting
-- [ ] Batch testing multiple prompts
-- [ ] Custom attack scenario builder
-- [ ] Prompt version history
-- [ ] Team collaboration features
-- [ ] Integration with CI/CD pipelines
-- [ ] Prompt template library
-- [ ] Export to various formats (PDF, JSON, YAML)
-- [ ] Real-time collaboration
-- [ ] Prompt performance analytics
-
----
-
-## 🤝 Contributing
-
-This is a hackathon project built with IBM Bob. Contributions, issues, and feature requests are welcome!
-
----
-
-## 📄 License
-
-This project is built for the IBM Bob Hackathon.
-
----
-
-## 🙏 Acknowledgments
-
-- **IBM Bob IDE** - Core development partner for this hackathon project
-- **Google Cloud Vertex AI** - Runtime LLM powering all analysis and generation
-- **Next.js Team** - Excellent framework for rapid development
-- **Tailwind CSS** - Beautiful, utility-first styling
-
----
-
-## 📞 Support
-
-For questions or issues:
-1. Check the `/bob_sessions` directory for development documentation
-2. Review the `.env.example` for configuration help
-3. Ensure Vertex AI credentials are properly configured
-
----
-
-**Built with ❤️ using IBM Bob IDE and Vertex AI Gemini 2.5 Pro**
+MIT License — see [LICENSE](LICENSE) for details.
