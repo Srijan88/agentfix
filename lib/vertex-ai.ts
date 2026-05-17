@@ -215,7 +215,7 @@ export async function callVertexAI(prompt: string, operation: 'analyze' | 'attac
       temperature: 0.2,
       topP: 0.95,
       maxOutputTokens: 8192,
-      responseMimeType: 'application/json',
+      ...(config.apiKey ? {} : { responseMimeType: 'application/json' }),
     },
     safetySettings: [
       { category: 'HARM_CATEGORY_HARASSMENT',        threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
