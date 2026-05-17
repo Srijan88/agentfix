@@ -5643,11 +5643,11 @@ Let me check the Vertex AI configuration to see which Gemini model is being used
 <file><path>.env.local</path>
 <content lines="1-7">
 1 | # Google Cloud Vertex AI Configuration
-2 | GOOGLE_CLOUD_PROJECT=clear-style-493512-n0
-3 | GOOGLE_CLOUD_PROJECT_ID=clear-style-493512-n0
+2 | GOOGLE_CLOUD_PROJECT=clear
+3 | GOOGLE_CLOUD_PROJECT_ID=clear
 4 | GOOGLE_CLOUD_LOCATION=us-central1
 5 | VERTEX_AI_MODEL=gemini-2.5-flash
-6 | GOOGLE_APPLICATION_CREDENTIALS=C:\Users\srija\Downloads\clear-style-493512-n0-89b010876e55.json
+6 | GOOGLE_APPLICATION_CREDENTIALS=C:\Users\srija\Downloads\clear10876e55.json
 7 | VERTEX_AI_API_KEY=
 </content>
 </file>
@@ -5829,9 +5829,9 @@ IMPORTANT: When task status changes, remember to call the `update_todo_list` too
    - Defined in [`lib/vertex-ai.ts:19`](lib/vertex-ai.ts:19): `export const VERTEX_MODEL = process.env.VERTEX_AI_MODEL || 'gemini-2.5-flash';`
 
 2. **Project Configuration:**
-   - Project ID: `clear-style-493512-n0`
+   - Project ID: `clear`
    - Location: `us-central1`
-   - Authentication: Service Account JSON file at `C:\Users\srija\Downloads\clear-style-493512-n0-89b010876e55.json`
+   - Authentication: Service Account JSON file at `C:\Users\srija\Downloads\clear-89b010876e55.json`
 
 3. **Authentication Method:**
    - Using **Google Application Default Credentials (ADC)** via service account JSON
@@ -5839,7 +5839,7 @@ IMPORTANT: When task status changes, remember to call the `update_todo_list` too
 
 4. **Vertex AI Endpoint:**
    ```
-   https://us-central1-aiplatform.googleapis.com/v1/projects/clear-style-493512-n0/locations/us-central1/publishers/google/models/gemini-2.5-flash:streamGenerateContent
+   https://us-central1-aiplatform.googleapis.com/v1/projects/clear/locations/us-central1/publishers/google/models/gemini-2.5-flash:streamGenerateContent
    ```
 
 ### Model Parameters:
