@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .bg { fill: #131314; }
+      .letter { fill: #ecb2ff; font-family: system-ui, -apple-system, sans-serif; font-size: 20px; font-weight: 900; letter-spacing: -1px; }
+      .border { fill: none; stroke: #bd00ff; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <!-- Background -->
+  <rect class="bg" width="32" height="32" rx="6"/>
+  <!-- Border -->
+  <rect class="border" x="1" y="1" width="30" height="30" rx="5"/>
+  <!-- Letter A -->
+  <text class="letter" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">A</text>
+</svg>

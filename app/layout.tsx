@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "AgentFix Playground — AI Agent Prompt Testing & Repair",
   description:
     "Analyze, attack, and heal your AI agent prompts in real-time using Vertex AI Gemini 2.5.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
