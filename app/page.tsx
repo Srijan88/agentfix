@@ -143,14 +143,6 @@ export default function Landing() {
             <a href="#features" className="hover:text-on-surface transition-colors">
               Features
             </a>
-            <a
-              href="https://github.com/Srijan88/agentfix"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-on-surface transition-colors"
-            >
-              GitHub
-            </a>
           </div>
 
           <Link
